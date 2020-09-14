@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>万亿科技报表系统</title>
+    <script type="text/javascript" src="zcell/jquery.min.js"></script>
+    <script type="text/javascript" src="zcell/ZCell.register.js"></script>
+    <script type="text/javascript" src="zcell/ZCell.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="zcell/ZCell.css" />
+    <link rel="shortcut icon " type="images/x-icon" href="./favicon.ico">
+
+    <style>
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 6px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 2px;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button2 {
+            background-color: white;
+            color: black;
+            border: 1px solid #008CBA;
+        }
+
+        .button2:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .button3 {
+            background-color: white;
+            color: black;
+            border: 2px solid #f44336;
+        }
+
+        .button3:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button4 {
+            background-color: white;
+            color: black;
+            border: 2px solid #e7e7e7;
+        }
+
+        .button4:hover {
+            background-color: #e7e7e7;
+        }
+
+        .button5 {
+            background-color: white;
+            color: black;
+            border: 2px solid #555555;
+        }
+
+        .button5:hover {
+            background-color: #555555;
+            color: white;
+        }
+    </style>
+
+    <script>
+        //页面加载时，执行
+        var zcell1;
+        //准备数据源
+        var jsondata = [ //四行五列
+            ["", "", "", "", "", ""],
+            ["", "", "", "", "", ""],
+            ["", "项目", "全年指标", "本月事故次数", "累积损失金额(元)", "累积事故次数", "累积事故次数", "累积损失金额(元)", "事故及损失说明"],
+            ["", "人身安全", "0", "", "", ""],
+            ["", "财产安全", "0", "", "", ""],
+            ["", "其他", "0", "", "", "", ""],
+            ["", "", "", "", "", "", ""],
+            ["", "项目", "玉灵牌化肥", "其他牌化肥", "农产品交易", "暂无", "暂无", "暂无", "暂无", "暂无", "暂无"]
+
+        ];
+        //页面加载时执行
+        $(document).ready(function () {
+            //创建JSCELL，指明承载容器
+            zcell1 = new ZCell(document.getElementById("cellContainer"));
+            //创建表，并指定列，行数
+            zcell1.InserSheet(0, 20, 30);
+            //加载数据
+            zcell1.GetSheet(0).LoadArrData(jsondata);
+
+            // 表格标题
+            //合并单元格
+            zcell1.GetSheet(0).MergeCells(9, 3, 12, 3);
+            zcell1.GetSheet(0).MergeCells(9, 4, 12, 6);
+            zcell1.GetSheet(0).MergeCells(1, 1, 12, 1);
+            zcell1.GetSheet(0).SetCellValue(1, 1,
+                "科技公司财务部月度目标任务进度及经营管理信息一览表");
+            zcell1.GetSheet(0).SetCellStyle(1, 1, {
+                "color": "black",
+                "fontSize": "30px"
+            });
+            zcell1.GetSheet(0).MergeCells(10, 2, 11, 2); // 表格合并
+            var linktpye3 = {
+                "code": "linkbutton",
+                "object": "<a style='color: black' title='时间' >2019年_____月</a>"
+            };
+            zcell1.GetSheet(0).SetCellType(10, 2, linktpye3);
+
+
+
+            //设置单元格文本
+            zcell1.GetSheet(0).MergeCells(1, 3, 1, 6); // 表格合并
+            zcell1.GetSheet(0).SetColWidth(1, 70); // 设置列宽
+            zcell1.GetSheet(0).SetCellValue(1, 3, "安全管理");
+            zcell1.GetSheet(0).SetCellStyle(1, 3, {
+                "background-color": "yellow",
+                "text-align": "center"
+            });
+            zcell1.GetSheet(0).MergeCells(1, 8, 1, 11); // 表格合并
+            zcell1.GetSheet(0).SetColWidth(1, 70); // 设置列宽
+            zcell1.GetSheet(0).SetCellValue(1, 8, "经营收入");
+            zcell1.GetSheet(0).SetCellStyle(1, 8, {
+                "background-color": "yellow",
+                "text-align": "center"
+            });
+            // 设置列宽 
+            zcell1.GetSheet(0).SetColWidth(5, 120); // 设置列宽
+            zcell1.GetSheet(0).SetColWidth(8, 120); // 设置列宽
+
+
+
+            //设置数值小数显示精度
+            var format1 = {
+                "code": "number",
+                "expression": {
+                    "precision": "2",
+                    "thousand": true
+                }
+            };
+            zcell1.GetSheet(0).SetCellFormat(6, 6, format1);
+            zcell1.GetSheet(0).SetCellFormat(6, 7, format1);
+
+
+            //设置单元格样式
+            var style1 = {
+                "border-top": "1px solid #000",
+            };
+            var style = {
+                "border-left": "1px solid #000",
+            }
+            var bottom = {
+                "border-bottom": "1px solid #000",
+            }
+            var right = {
+                "border-right": "1px solid #000",
+            }
+            for (let i = 1; i < 10; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 3, bottom);
+            }
+            for (let i = 1; i < 9; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 4, right);
+                zcell1.GetSheet(0).SetCellStyle(i, 4, bottom);
+            }
+            for (let i = 1; i < 9; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 5, right);
+                zcell1.GetSheet(0).SetCellStyle(i, 5, bottom);
+            }
+            for (let i = 1; i < 9; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 6, right);
+            }
+            // 单元格黑框渲染
+            zcell1.GetSheet(0).SetCellStyle(1, 6, style);
+            zcell1.GetSheet(0).SetCellStyle(1, 6, right);
+            zcell1.GetSheet(0).SetCellStyle(1, 6, style1)
+            zcell1.GetSheet(0).SetCellStyle(1, 6, bottom);;
+            zcell1.GetSheet(0).SetCellStyle(2, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(2, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(3, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(3, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(4, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(4, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(5, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(5, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(6, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(6, 3, style)
+            zcell1.GetSheet(0).SetCellStyle(7, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(7, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(8, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(8, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(9, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(9, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(10, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(10, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(11, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(11, 3, style);
+            zcell1.GetSheet(0).SetCellStyle(12, 3, style1);
+            zcell1.GetSheet(0).SetCellStyle(12, 3, style);
+
+            zcell1.GetSheet(0).SetCellStyle(2, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(3, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(4, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(5, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(6, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(7, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(8, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(9, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(10, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(11, 6, bottom);
+            zcell1.GetSheet(0).SetCellStyle(12, 6, bottom);
+
+            zcell1.GetSheet(0).SetCellStyle(12, 3, right);
+            zcell1.GetSheet(0).SetCellStyle(12, 4, right);
+            zcell1.GetSheet(0).SetCellStyle(12, 5, right);
+            zcell1.GetSheet(0).SetCellStyle(12, 6, right);
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="cellContainer" style="width:80vw;height:90vh;border:1px solid #DDECFE;overflow:hidden;"></div>
+</body>
+
+</html>
