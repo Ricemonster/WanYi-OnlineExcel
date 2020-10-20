@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>万亿科技报表系统</title>
+    <script type="text/javascript" src="zcell/jquery.min.js"></script>
+    <script type="text/javascript" src="zcell/ZCell.register.js"></script>
+    <script type="text/javascript" src="zcell/ZCell.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="zcell/ZCell.css" />
+    <link rel="shortcut icon " type="images/x-icon" href="./favicon.ico">
+
+    <style>
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 6px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 2px;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button2 {
+            background-color: white;
+            color: black;
+            border: 1px solid #008CBA;
+        }
+
+        .button2:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .button3 {
+            background-color: white;
+            color: black;
+            border: 2px solid #f44336;
+        }
+
+        .button3:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button4 {
+            background-color: white;
+            color: black;
+            border: 2px solid #e7e7e7;
+        }
+
+        .button4:hover {
+            background-color: #e7e7e7;
+        }
+
+        .button5 {
+            background-color: white;
+            color: black;
+            border: 2px solid #555555;
+        }
+
+        .button5:hover {
+            background-color: #555555;
+            color: white;
+        }
+    </style>
+
+    <script>
+        //页面加载时，执行
+        var zcell1;
+        //准备数据源
+        var jsondata = [ //四行五列
+            ["", "", "", "", "", ""],
+            ["", "", "", "", "", ""],
+            ["序号", "项目", "全年目标", "本月目标及实际完成", "", "", "到本月累计目标及累计完成", "", "", "累计完成全年目标的比例", "备注说明"],
+            ["", "", "", "本月目标", "本月完成", "完成比例", "累计目标", "累计目标", "完成比例", "", ""],
+            ["目标管理", "平台功能", "基本完善"],
+            [],
+            ["安全管理", "项目", "全年目标", "本月事故次数", "本月损失金额(元)", "累计事故次数", "累计损金额(元)", "事故及损失说明"],
+            ["", "人身安全", "0"],
+            ["", "财产安全", "0"],
+            ["", "其他", "0"],
+            ["填报人签写:", "", "", "填报日期:", "", "", "", "目标责任人审核签名：", "", "", "", "日期："]
+        ];
+
+        //页面加载时执行
+        $(document).ready(function () {
+            //创建JSCELL，指明承载容器
+            zcell1 = new ZCell(document.getElementById("cellContainer"));
+            //创建表，并指定列，行数
+            zcell1.InserSheet(0, 20, 30);
+            //加载数据
+            zcell1.GetSheet(0).LoadArrData(jsondata);
+
+            // 表格标题
+            //合并单元格
+            zcell1.GetSheet(0).MergeCells(1, 1, 12, 1);
+            zcell1.GetSheet(0).MergeCells(1, 3, 1, 4);
+            zcell1.GetSheet(0).MergeCells(2, 3, 2, 4);
+            zcell1.GetSheet(0).MergeCells(3, 3, 3, 4);
+            zcell1.GetSheet(0).MergeCells(4, 3, 6, 3);
+            zcell1.GetSheet(0).MergeCells(7, 3, 9, 3);
+            zcell1.GetSheet(0).MergeCells(10, 3, 10, 4);
+            zcell1.GetSheet(0).MergeCells(11, 3, 12, 4);
+            zcell1.GetSheet(0).MergeCells(11, 5, 12, 5);
+            zcell1.GetSheet(0).MergeCells(8, 11, 9, 11);
+            zcell1.GetSheet(0).MergeCells(1, 7, 1, 10);
+            zcell1.GetSheet(0).MergeCells(1, 11, 2, 11);
+            zcell1.GetSheet(0).SetColWidth(10, 200);
+            zcell1.GetSheet(0).MergeCells(8, 7, 12, 7);
+            zcell1.GetSheet(0).SetColWidth(5, 130);
+            zcell1.GetSheet(0).SetCellStyle(1, 5, {
+                "background": "yellow"
+            });
+            zcell1.GetSheet(0).SetCellStyle(1, 7, {
+                "background": "yellow"
+            });
+            zcell1.GetSheet(0).SetRowHeight(5, 60);
+            zcell1.GetSheet(0).SetRowHeight(7, 50);
+            zcell1.GetSheet(0).SetCellValue(1, 1,
+                "科技公司技术部月度目标任务进度及经营管理信息一览表");
+            zcell1.GetSheet(0).SetCellStyle(1, 1, {
+                "color": "black",
+                "fontSize": "30px"
+            });
+            zcell1.GetSheet(0).MergeCells(10, 2, 11, 2); // 表格合并
+            var linktpye3 = {
+                "code": "linkbutton",
+                "object": "<a style='color: black' title='时间' >2020年_____月</a>"
+            };
+            zcell1.GetSheet(0).SetCellType(10, 2, linktpye3);
+
+        });
+        // 自定义事件
+        function summitfun() {
+            // 获取数据
+            var name = zcell1.GetSheet(0).GetCellValue(3, 17) // 提交人
+        }
+    </script>
+</head>
+
+<body>
+    <div id="cellContainer" style="width:99vw;height:90vh;border:1px solid #DDECFE;overflow:hidden;"></div>
+</body>
+
+</html>

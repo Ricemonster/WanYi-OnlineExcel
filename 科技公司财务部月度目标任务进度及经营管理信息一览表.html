@@ -95,9 +95,19 @@
             ["", "财产安全", "0", "", "", ""],
             ["", "其他", "0", "", "", "", ""],
             ["", "", "", "", "", "", ""],
-            ["", "项目", "玉灵牌化肥", "其他牌化肥", "农产品交易", "暂无", "暂无", "暂无", "暂无", "暂无", "暂无"]
+            ["", "项目", "玉灵牌化肥", "其他牌化肥", "农产品交易", "暂无", "暂无", "暂无", "暂无", "暂无", "暂无", "暂无"],
+            ["", "本月发生(元)", "", "", "", "/", "/", "/", "/", "/", "/", "/"],
+            ["", "年度累计(元)", "", "", "", "/", "/", "/", "/", "/", "/", "/"],
+            ["", "备注", "", "", "", "/", "/", "/", "/", "/", "/", "/"],
+            ["", "", "", "", ""],
+            ["", "项目", "人员工资", "人员福利", "办公费用", "差旅费用", "接待费用", "平台运营", "市场营销", "财务费用", "其他", "合计"],
+            ["", "本月发生(元)", "", "", ""],
+            ["", "年度累计(元)", ""],
+            ["", "备注", ""],
+            ["", "填报人签名:", "", "填报日期:", "", "", "目标责任人审核签名：", "", "", "", "日期:"],
 
         ];
+
         //页面加载时执行
         $(document).ready(function () {
             //创建JSCELL，指明承载容器
@@ -109,9 +119,13 @@
 
             // 表格标题
             //合并单元格
+            zcell1.GetSheet(0).MergeCells(3, 16, 12, 16);
+            zcell1.GetSheet(0).MergeCells(6, 17, 7, 17);
             zcell1.GetSheet(0).MergeCells(9, 3, 12, 3);
             zcell1.GetSheet(0).MergeCells(9, 4, 12, 6);
             zcell1.GetSheet(0).MergeCells(1, 1, 12, 1);
+            zcell1.GetSheet(0).SetCellValue(6, 17,
+                "目标责任人审核签名：");
             zcell1.GetSheet(0).SetCellValue(1, 1,
                 "科技公司财务部月度目标任务进度及经营管理信息一览表");
             zcell1.GetSheet(0).SetCellStyle(1, 1, {
@@ -139,6 +153,13 @@
             zcell1.GetSheet(0).SetColWidth(1, 70); // 设置列宽
             zcell1.GetSheet(0).SetCellValue(1, 8, "经营收入");
             zcell1.GetSheet(0).SetCellStyle(1, 8, {
+                "background-color": "yellow",
+                "text-align": "center"
+            });
+            zcell1.GetSheet(0).MergeCells(1, 13, 1, 16); // 表格合并
+            zcell1.GetSheet(0).SetColWidth(1, 70); // 设置列宽
+            zcell1.GetSheet(0).SetCellValue(1, 13, "费用管理");
+            zcell1.GetSheet(0).SetCellStyle(1, 13, {
                 "background-color": "yellow",
                 "text-align": "center"
             });
@@ -187,6 +208,41 @@
             for (let i = 1; i < 9; i++) {
                 zcell1.GetSheet(0).SetCellStyle(i, 6, right);
             }
+            for (let i = 1; i < 13; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 8, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 8, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 8, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 9, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 9, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 10, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 9, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 11, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 11, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 11, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 11, bottom);
+            }
+            for (let i = 8; i < 12; i++) {
+                zcell1.GetSheet(0).SetCellStyle(12, i, right);
+            }
+            for (let i = 13; i < 17; i++) {
+                zcell1.GetSheet(0).SetCellStyle(12, i, right);
+            }
+            for (let i = 1; i < 13; i++) {
+                zcell1.GetSheet(0).SetCellStyle(i, 13, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 13, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 13, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 13, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 13, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 14, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 13, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 15, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 15, style1);
+                zcell1.GetSheet(0).SetCellStyle(i, 15, style);
+                zcell1.GetSheet(0).SetCellStyle(i, 15, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 16, bottom);
+                zcell1.GetSheet(0).SetCellStyle(i, 16, right);
+            }
+
             // 单元格黑框渲染
             zcell1.GetSheet(0).SetCellStyle(1, 6, style);
             zcell1.GetSheet(0).SetCellStyle(1, 6, right);
@@ -231,16 +287,28 @@
             zcell1.GetSheet(0).SetCellStyle(12, 4, right);
             zcell1.GetSheet(0).SetCellStyle(12, 5, right);
             zcell1.GetSheet(0).SetCellStyle(12, 6, right);
+            // 事件绑定
+            // 获取值
+            var btntype = {
+                "code": "button",
+                "object": "<button type=\"button\" onclick='summitfun()' style='border: solid 1px;'>完成报表</button>"
+            };
 
-
-
+            zcell1.GetSheet(0).SetCellType(1, 19, btntype);
 
         });
+        // 自定义事件
+        function summitfun() {
+            // 获取数据
+            var name = zcell1.GetSheet(0).GetCellValue(3, 17) // 
+            console.log(name)
+            
+        }
     </script>
 </head>
 
 <body>
-    <div id="cellContainer" style="width:80vw;height:90vh;border:1px solid #DDECFE;overflow:hidden;"></div>
+    <div id="cellContainer" style="width:99vw;height:90vh;border:1px solid #DDECFE;overflow:hidden;"></div>
 </body>
 
 </html>
