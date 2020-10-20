@@ -301,7 +301,11 @@
         function summitfun() {
             // 获取数据
             var name = zcell1.GetSheet(0).GetCellValue(3, 17) // 
-            console.log(name)
+            if(name == ""){
+                alert("请填写填报人签名表格后提交！！！")
+            }else{
+                alert(`提交人为${name}`)
+            }
             
         }
     </script>
